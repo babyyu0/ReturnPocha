@@ -1,6 +1,18 @@
+import { useState } from 'react';
 import '../resource/css/enter.css';
+import api from '../service/axios';
+import NicknameInput from './NicknameInput';
 
 function EnterPage() {
+
+    const [nickname, setNickName] = useState("");
+
+    const setRoom = () => {
+        api({}).then((response) => {
+            console.log(response.data);
+        });
+    };
+
     return (
         <div id="enter-container">
             <div id="enter-contents">
@@ -8,13 +20,10 @@ function EnterPage() {
                     <img src='/enter/logo.png' width="500px" />
                 </div>
                 <div>
-                    <div id="nickname-container">
-                        <input id="nickname-input" maxLength={10} placeholder='닉네임 입력' />
-                        <button id="nickname-button">시작</button>
-                    </div>
+                    <NicknameInput nickname={nickname} setNickName={setNickName} setRoom={setRoom} />
                 </div>
             </div>
-            <img id="underroof" src="/enter/roof.png" />
+            <img id="underroof" src="/roof.png" />
         </div>
     );
 }
