@@ -10,15 +10,13 @@ import org.springframework.data.redis.core.RedisHash;
 import java.util.ArrayList;
 import java.util.List;
 
-@RedisHash
+@RedisHash(timeToLive = 600L)
 @Builder
 @Getter
 public class Room {
     @Id
     private String id;
 
-    private boolean process;
-
     @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
-    private List<Player> playerList = new ArrayList<>();
+    private List<Player> playerList;
 }

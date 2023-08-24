@@ -8,7 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.redis.core.RedisHash;
 
-@RedisHash
+@RedisHash(timeToLive = 600L)
 @Builder
 @Getter
 public class Player {
