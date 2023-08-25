@@ -30,7 +30,7 @@ public class RoomServiceImpl implements RoomService {
 
             return RoomResponseDto.builder()
                     .id(room.getId())
-                    .progress(room.isProgess())
+                    .progress(room.isProgress())
                     .build();
         } catch (Exception e) {
             e.printStackTrace();

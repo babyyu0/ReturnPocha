@@ -7,4 +7,5 @@ import lombok.Getter;
 @Getter
 public class RoomResponseDto {
     private String id;
+    private boolean progress;
 }

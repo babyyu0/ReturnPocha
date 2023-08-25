@@ -5,4 +5,5 @@ import lombok.Getter;
 @Getter
 public class RoomRequestDto {
     private String id;
+    private boolean progress;
 }

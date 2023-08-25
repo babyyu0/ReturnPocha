@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.redis.core.RedisHash;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RedisHash(timeToLive = 600L)
@@ -16,6 +15,7 @@ import java.util.List;
 public class Room {
     @Id
     private String id;
+    private boolean progress;
 
     @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
     private List<Player> playerList;
