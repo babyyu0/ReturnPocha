@@ -16,11 +16,11 @@ public class PlayerController {
     private final PlayerService playerService;
 
     @Autowired
-    private PlayerController(PlayerService playerService) {
+    public PlayerController(PlayerService playerService) {
         this.playerService = playerService;
     }
 
-    @PostMapping
+    @PostMapping("create")
     public ResponseEntity<?> setPlayer(@RequestBody PlayerRequestDto playerRequestDto) {
         try {
             return ResponseEntity.ok(playerService.setPlayer(playerRequestDto));
