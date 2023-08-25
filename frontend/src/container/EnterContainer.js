@@ -1,11 +1,16 @@
+// modules
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import '../resource/css/enter.css';
-import { api } from '../service/axios';
-import NameInput from '../component/NameInput';
 import { useRecoilState, useSetRecoilState } from 'recoil';
+
+// services
 import { RoomState } from '../recoil/RoomState';
 import { PlayerState, PlayerListState } from '../recoil/PlayerListState';
+import { api } from '../service/axios';
+
+// components
+import '../resource/css/enter.css';
+import NameInput from '../component/NameInput';
 
 function EnterContainer() {
 
