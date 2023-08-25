@@ -34,6 +34,8 @@ public class PlayerController {
     @PostMapping("create")
     public ResponseEntity<?> setPlayer(@RequestBody PlayerRequestDto playerRequestDto) {
         try {
+            Map<String, Object> responsePayload = playerService.setPlayer(playerRequestDto);
+            webSocket.convertAndSend("/topic/player/" + playerRequestDto.getRoomId(), ((Map<String, PlayerResponseDto>)responsePayload.get("playerList")).get(responsePayload.get("id")));
             return ResponseEntity.ok(playerService.setPlayer(playerRequestDto));
         } catch(SetPlayerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
