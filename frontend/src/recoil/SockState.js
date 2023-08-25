@@ -6,8 +6,8 @@ const { persistAtom } = recoilPersist({
     storage: sessionStorage,
 });
 
-export const SockState = atom({
-    key: 'SockState',
+export const StompState = atom({
+    key: 'StompState',
     default: {},
     effects_UNSTABLE: [persistAtom]
 });
