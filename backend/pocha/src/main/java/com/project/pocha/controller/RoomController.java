@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class RoomController {
     private final RoomService roomService;
 
-    public RoomController(RoomService roomService) {
+    private RoomController(RoomService roomService) {
         this.roomService = roomService;
     }
 

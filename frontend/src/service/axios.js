@@ -8,5 +8,4 @@ const api = axios.create({
   method: "POST"
 });
 
-export default api;
-
+export { api };

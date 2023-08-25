@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../resource/css/enter.css';
-import api from '../service/axios';
+import { api } from '../service/axios';
 import NameInput from '../component/NameInput';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { RoomState } from '../recoil/RoomState';
@@ -18,7 +18,7 @@ function EnterContainer() {
     const [room, setRoom] = useRecoilState(RoomState);
     const [name, setName] = useState("");  // player 닉네임
     const setPlayer = useSetRecoilState(PlayerState);  // player ID 저장
-    const [playerList, setPlayerList] = useRecoilState(PlayerListState);  // playerList 불러오기
+    const setPlayerList = useSetRecoilState(PlayerListState);  // playerList 불러오기
 
     const startGame = () => {  // 방 생성/조회 여부 결정
         if (!roomId) {

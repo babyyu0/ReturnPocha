@@ -7,6 +7,7 @@ import com.project.pocha.model.entity.Room;
 import com.project.pocha.model.repository.PlayerRepository;
 import com.project.pocha.model.repository.RoomRepository;
 import com.project.pocha.util.exception.SetPlayerException;
+import com.project.pocha.util.exception.UpdatePlayerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +56,7 @@ public class PlayerServiceImpl implements PlayerService {
 
             Map<String, PlayerResponseDto> playerResponseDtoMap = new HashMap<>();
             Map<String, Object> responsePayload = new HashMap<>();
-            for(Player p : playerList) {
+            for (Player p : playerList) {
                 playerResponseDtoMap.put(p.getId(), PlayerResponseDto.builder()
                         .id(player.getId())
                         .name(player.getName())
@@ -73,5 +74,33 @@ public class PlayerServiceImpl implements PlayerService {
             e.printStackTrace();
             throw new SetPlayerException();
         }
+    }
+
+    @Override
+    public Object updatePlayer(Map<String, Object> payload, String roomId) throws UpdatePlayerException {
+        Room room = roomRepository.findById(roomId).orElseThrow(() -> new UpdatePlayerException("방 ID 조회 실패"));
+        Player player = playerRepository.findById((String) payload.get("id")).orElseThrow(() -> new UpdatePlayerException("플레이어 ID 조회 실패"));
+
+        boolean head = false;
+        if (room.getPlayerList() == null || room.getPlayerList().size() == 0) head = true;
+
+        if (!player.getRoom().getId().equals(roomId)) {
+            throw new UpdatePlayerException("현재 방 인원이 아닙니다.");
+        }
+
+        player = Player.builder()
+                .id(player.getId())
+                .name(player.getName())
+                .head(head)
+                .ready((boolean) payload.get("ready"))
+                .build();
+        playerRepository.save(player);
+
+        return PlayerResponseDto.builder()
+                .id(player.getId())
+                .name(player.getName())
+                .head(player.isHead())
+                .ready(player.isReady())
+                .build();
     }
 }
