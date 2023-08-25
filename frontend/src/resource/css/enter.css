@@ -21,28 +21,32 @@
     justify-content: center;
     align-items: center;
     padding: 80px 0 200px 0;
+    margin: 0 auto;
+
+    min-width: 1000px;
 }
 
-#nickname-container {
+#name-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#nickname-input {
+#name-input {
     padding: 20px;
     width: 400px;
     font-size: 50px;  
 }
 
-#nickname-input:focus-visible {
+#name-input:focus-visible {
     outline: 5px solid #FFB833 !important;
 }
 
-#nickname-button {
+#name-button {
     padding: 20px;
     margin-left: 20px;
-    width: 200px;
+    width: 10vw;
+    min-width: 200px;
     height: auto;
 
     font-size: 50px;
