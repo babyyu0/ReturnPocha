@@ -15,6 +15,8 @@ public class Player {
     @Id
     private String id;
     private String name;
+    private boolean head;
+    private boolean ready;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="room_id", nullable = false)

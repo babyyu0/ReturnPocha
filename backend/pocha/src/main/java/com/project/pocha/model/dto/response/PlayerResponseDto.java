@@ -8,5 +8,6 @@ import lombok.Getter;
 public class PlayerResponseDto {
     private String id;
     private String name;
-    private String roomId;
+    private boolean head;
+    private boolean ready;
 }
