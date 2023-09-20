@@ -13,9 +13,10 @@ import { stompClient, overStomp, connectStomp } from "../service/stomp";
 
 // components
 import "../resource/css/room.css";
-import PlayerCamList from "../component/PlayerCamList";
-import ChatInput from "../component/ChatInput";
-import ChatHistory from "../component/ChatHistory";
+import PlayerCamList from "../component/room/PlayerCamList";
+import ChatInput from "../component/room/ChatInput";
+import ChatHistory from "../component/room/ChatHistory";
+import PlayButtons from "../component/room/PlayButtons";
 
 function RoomContainer() {
   const room = useRecoilValue(RoomState);
@@ -55,15 +56,14 @@ function RoomContainer() {
   };
 
   useEffect(() => {
-    // Alert 띄우기
-    if (alertMsg) {
+    if (alertMsg) {  // Alert 띄우기
       Swal.fire({
-        icon: "error",
-        title: `<span style="font-family: 'NanumSquare'"}">${alertMsg}</span>`,
+        icon: 'error',
+        title: `<span style="font-family: 'NanumSquare'">${alertMsg}</span>`,
         showConfirmButton: false,
         timer: 1000,
       });
-      setAlertMsg("");
+      setAlertMsg('');
     }
   }, [alertMsg]);
 
@@ -80,6 +80,7 @@ function RoomContainer() {
         <PlayerCamList />
         <ChatHistory chatHistory={chatHistory} setChatHistory={setChatHistory} />
         <ChatInput message={message} setMessage={setMessage} send={send} />
+        <PlayButtons player={playerList[playerId]} />
       </div>
     </div>
   );

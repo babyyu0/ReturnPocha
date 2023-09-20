@@ -2,6 +2,7 @@ package com.project.pocha.controller;
 
 import com.project.pocha.model.dto.request.PlayerRequestDto;
 import com.project.pocha.model.dto.response.PlayerResponseDto;
+import com.project.pocha.model.dto.response.SetPlayerResponseDto;
 import com.project.pocha.model.service.PlayerService;
 import com.project.pocha.util.exception.SetPlayerException;
 import com.project.pocha.util.exception.UpdatePlayerException;
@@ -33,10 +34,11 @@ public class PlayerController {
 
     @PostMapping("create")
     public ResponseEntity<?> setPlayer(@RequestBody PlayerRequestDto playerRequestDto) {
+        System.out.println("Set Player Controller 호출");
         try {
-            Map<String, Object> responsePayload = playerService.setPlayer(playerRequestDto);
-            webSocket.convertAndSend("/topic/player/" + playerRequestDto.getRoomId(), ((Map<String, PlayerResponseDto>)responsePayload.get("playerList")).get(responsePayload.get("id")));
-            return ResponseEntity.ok(playerService.setPlayer(playerRequestDto));
+            SetPlayerResponseDto setPlayerResponseDto = playerService.setPlayer(playerRequestDto);
+            webSocket.convertAndSend("/topic/player/" + playerRequestDto.getRoomId(), setPlayerResponseDto.getId());
+            return ResponseEntity.ok(setPlayerResponseDto);
         } catch(SetPlayerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }

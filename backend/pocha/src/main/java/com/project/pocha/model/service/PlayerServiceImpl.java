@@ -2,6 +2,7 @@ package com.project.pocha.model.service;
 
 import com.project.pocha.model.dto.request.PlayerRequestDto;
 import com.project.pocha.model.dto.response.PlayerResponseDto;
+import com.project.pocha.model.dto.response.SetPlayerResponseDto;
 import com.project.pocha.model.entity.Player;
 import com.project.pocha.model.entity.Room;
 import com.project.pocha.model.repository.PlayerRepository;
@@ -25,7 +26,8 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Map<String, Object> setPlayer(PlayerRequestDto playerRequestDto) throws SetPlayerException {
+    public SetPlayerResponseDto setPlayer(PlayerRequestDto playerRequestDto) throws SetPlayerException {
+        System.out.println("Set Player Service 호출");
         Room room = roomRepository.findById(playerRequestDto.getRoomId()).orElseThrow(() -> new SetPlayerException("방 ID 조회 실패"));
 
         List<Player> playerList = new ArrayList<>();
@@ -58,18 +60,18 @@ public class PlayerServiceImpl implements PlayerService {
             Map<String, Object> responsePayload = new HashMap<>();
             for (Player p : playerList) {
                 playerResponseDtoMap.put(p.getId(), PlayerResponseDto.builder()
-                        .id(player.getId())
-                        .name(player.getName())
-                        .head(player.isHead())
-                        .ready(player.isReady())
+                        .name(p.getName())
+                        .head(p.isHead())
+                        .ready(p.isReady())
                         .build()
                 );
             }
+            System.out.println(playerResponseDtoMap);
 
-            responsePayload.put("id", player.getId());
-            responsePayload.put("playerList", playerResponseDtoMap);
-
-            return responsePayload;
+            return SetPlayerResponseDto.builder()
+                    .id(player.getId())
+                    .playerMap(playerResponseDtoMap)
+                    .build();
         } catch (Exception e) {
             e.printStackTrace();
             throw new SetPlayerException();
@@ -94,10 +96,11 @@ public class PlayerServiceImpl implements PlayerService {
                 .head(head)
                 .ready((boolean) payload.get("ready"))
                 .build();
+
         playerRepository.save(player);
 
         return PlayerResponseDto.builder()
-                .id(player.getId())
+                // .id(player.getId())
                 .name(player.getName())
                 .head(player.isHead())
                 .ready(player.isReady())

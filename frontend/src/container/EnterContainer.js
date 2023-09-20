@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
+import Swal from "sweetalert2";
 
 // services
 import { RoomState } from '../recoil/RoomState';
@@ -26,7 +27,16 @@ function EnterContainer() {
     const setPlayerList = useSetRecoilState(PlayerListState);  // playerList 불러오기
 
     const startGame = () => {  // 방 생성/조회 여부 결정
-        if (!roomId) {
+        if (!name) {
+            Swal.fire({
+              icon: 'error',
+              title: `<span style="font-family: 'NanumSquare'">닉네임이 입력되지 않았습니다.</span>`,
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            return;
+        }
+        else if (!roomId) {
             setUrl('/room/create');
         } else {
             setUrl('/room/select');
@@ -59,7 +69,7 @@ function EnterContainer() {
                 navigate(`/room`);
             });
         }
-    }, [room]);
+    }, [room.id]);
 
     return (
         <div id='enter-container'>

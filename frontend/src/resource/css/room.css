@@ -37,7 +37,7 @@
 }
 
 #chat-container {
-    padding: 20px;
+    padding: 10px 20px;
     margin: 0 auto;
     margin-bottom: 20px;
     width: 70vw;
@@ -102,3 +102,33 @@
     transform: translateY(var(--bouncing-offset));
     box-shadow: none;
 }
+
+#btns-container {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    width: 70vw;
+}
+
+#gamemode-btn {
+    margin-top: 2vw;
+    width: 12vw;
+    height: 18vh;
+
+    background-color: transparent;
+    background-image: url(/public/room/pan.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    font-size: 2vw;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+
+    transition: all 200ms;
+}
+#gamemode-btn:hover {
+    transform: rotate(-10deg); /* X축으로 20도만큼 기울임 */
+    font-size: 2.2vw;
+  }
